@@ -58,6 +58,7 @@ jobs:
         uses: EndBug/add-and-commit@v9
         with:
           message: 'Updates values.yaml with commit ${{needs.ci.outputs.commit_id}}'
+          token: ${{ secrets.PAT_TOKEN }}
       - name: Install argocd
         shell: bash
         run: |
@@ -73,3 +74,4 @@ jobs:
             --username admin \
             --password  ${{ secrets.ARGOCD_PASSWORD }}
           argocd app sync python-app
+          
