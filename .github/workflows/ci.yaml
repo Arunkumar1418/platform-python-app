@@ -45,13 +45,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
 
       - name: Modify values file
         shell: bash
         run: |
           echo "Updating image tag to: ${{needs.ci.outputs.commit_id}}"
-          pip install yq
-          yq -y -i '.image.tag = "${{needs.ci.outputs.commit_id}}"' charts/platform-python/values.yaml
+          sed -i "s/tag:.*/tag: \"${{needs.ci.outputs.commit_id}}\"/" charts/platform-python/values.yaml
           cat charts/platform-python/values.yaml
 
       - name: Commit changes
