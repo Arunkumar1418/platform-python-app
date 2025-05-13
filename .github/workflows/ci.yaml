@@ -63,11 +63,13 @@ jobs:
       - name: Install argocd
         shell: bash
         run: |
-          curl -ksSL -o argocd https://github.com/argoproj/argo-cd/releases/download/v3.6.7/argocd-linux-amd64
-          chmod +x argocd
-          sudo mv ./argocd /usr/local/bin/argocd
-          argocd version
-          
+          curl -sSL -o install.sh https://raw.githubusercontent.com/argoproj/argo-cd/stable/install.sh
+          chmod +x install.sh
+          sudo ./install.sh argocd
+          which argocd
+          argocd version --client
+          argocd --help
+
       - name: argocd app sync
         shell: bash
         run:  |
