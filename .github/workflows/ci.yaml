@@ -36,3 +36,43 @@ jobs:
         with:
           push: true
           tags: arunkumar1418/platform-python-app:${{ env.git_hash }}
+    outputs:
+      commit_id: ${{ env.git_hash }}
+
+  CD:
+    runs-on: self-hosted
+    needs: CI
+    steps:
+      -
+        name: Checkout repository
+        uses: actions/checkout@v4
+      -
+        name: modify values file
+        shell: bash
+        run:  |
+#          echo "imageTag: ${{ needs.CI.outputs.commit_id }}" > charts/platform-python-app/values.yaml
+           echo ${{needs.CI.outputs.commit_id}}
+           pip install yq
+           yq -Yi '.image.tag = "${{needs.CI.outputs.commit_id}}"' charts/platform-python.values.yaml
+           
+      -
+        name: install argocd
+        shell: bash
+        run:  |
+          curl -ksSL -o argocd https://argocd-server.argocd/downloads/argocd
+          chmod +x argocd
+          sudo mv argocd /usr/local/bin/argocd
+          argocd version
+      -
+        name: argocd app sync
+        shell: bash
+        run:  |
+          argocd login argocd-server.argocd \
+            --username $ARGOCD_USERNAME \
+            --password $ARGOCD_PASSWORD \
+            --grpc-web \
+            --insecure
+          argocd app sync platform-python \
+            --grpc-web \
+            --revision ${{ env.git_hash }} \
+#            --local charts/platform-python

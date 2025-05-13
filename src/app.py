@@ -18,7 +18,7 @@ def healthz():
         'status': 'Up and Running',
         'time': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         'hostname': socket.gethostname(),
-        'message': 'You are doing great Arun....! :)'
+        'message': 'You are doing great Arun....! <3'
     }), 200
 
 if __name__ == '__main__':

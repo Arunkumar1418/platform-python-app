@@ -1,0 +1,9 @@
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: RunnerDeployment
+metadata:
+  name: k8s-local-github-runner
+spec:
+  replicas: 1
+  template:
+    spec:
+      repository: arunkumar1418/platform-python-app
