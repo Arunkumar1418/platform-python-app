@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: arunkumar1418/platform-python-app
   pullPolicy: IfNotPresent
-  tag: "486f341"
+  tag: "077a891"
 
 imagePullSecrets: []
 nameOverride: ""
