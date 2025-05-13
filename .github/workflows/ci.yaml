@@ -49,9 +49,10 @@ jobs:
       - name: Modify values file
         shell: bash
         run: |
-          echo ${{needs.ci.outputs.commit_id}}
+          echo "Updating image tag to: ${{needs.ci.outputs.commit_id}}"
           pip install yq
-          yq -Yi '.image.tag = "${{needs.ci.outputs.commit_id}}"' charts/platform-python/values.yaml
+          yq eval -i '.image.tag = "${{needs.ci.outputs.commit_id}}"' charts/platform-python/values.yaml
+          cat charts/platform-python/values.yaml
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
