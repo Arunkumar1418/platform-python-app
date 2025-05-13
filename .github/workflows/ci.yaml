@@ -43,27 +43,27 @@ jobs:
     runs-on: self-hosted
     needs: CI
     steps:
-      -
-        name: Checkout repository
-        uses: actions/checkout@v4
-      -
-        name: modify values file
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Modify values file
         shell: bash
-        run:  |
-          echo "${{ needs.CI.outputs.commit_id }}"
+        run: |
+          echo ${{needs.ci.outputs.commit_id}}
           pip install yq
-          yq -Yi '.image.tag = "${{ needs.CI.outputs.commit_id }}"' charts/platform-python/values.yaml
-      -
-        name: install argocd
+          yq -Yi '.image.tag = "${{needs.ci.outputs.commit_id}}"' charts/platform-python/values.yaml
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: 'Updates values.yaml with commit ${{needs.ci.outputs.commit_id}}'
+      - name: Install argocd
         shell: bash
-        run:  |
-          curl -sSL -o argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
-          ls -ll
+        run: |
+          curl -ksSL -o argocd https://argocd-server.argocd/download/argocd-linux-amd64
           chmod +x argocd
           sudo mv ./argocd /usr/local/bin/argocd
-          argocd version
-      -
-        name: argocd app sync
+      - name: argocd app sync
         shell: bash
         run:  |
           argocd login argocd-server.argocd \
