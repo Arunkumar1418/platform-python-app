@@ -63,16 +63,16 @@ jobs:
       - name: Install argocd
         shell: bash
         run: |
-          curl -ksSL -o argocd https://argocd-server.argocd/download/argocd-linux-amd64
+          curl -ksSL -o argo https://argocd-server.argocd/download/argocd-linux-amd64
           chmod +x argocd
           sudo mv ./argocd /usr/local/bin/argocd
       - name: argocd app sync
         shell: bash
         run:  |
-          argocd login argocd-server.argocd \
+          argo  login argocd-server.argocd \
             --insecure  \
             --grpc-web \
             --username admin \
             --password  ${{ secrets.ARGOCD_PASSWORD }}
-          argocd app sync python-app
+          argo app sync python-app
           
