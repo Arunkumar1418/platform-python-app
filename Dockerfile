@@ -1,11 +1,11 @@
-FROM python:3.13.3-alpine
+FROM python:3.13.5-alpine
 
-COPY ./requirements.txt .
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
-COPY ./src .
+WORKDIR /app
+COPY pyproject.toml uv.lock ./
+RUN uv sync --frozen --no-dev
 
-RUN pip3 install -r requirements.txt
-
+COPY src/ ./src/
 EXPOSE 5000
-
-CMD [ "python3", "app.py" ]
+CMD ["uv", "run", "python", "src/app.py"]
