@@ -20,7 +20,7 @@ applicationSet:
   replicas: 1
 
 global:
-  domain: argocd.test.com
+  domain: platform.argocd.com
 
 certificate:
   enabled: true

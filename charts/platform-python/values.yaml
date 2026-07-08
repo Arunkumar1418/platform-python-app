@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: arunkumar1418/platform-python-app
   pullPolicy: IfNotPresent
-  tag: "1d3c6aa"
+  tag: "6c2402b"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -36,7 +36,6 @@ service:
 ingress:
   enabled: true
   className: "nginx"
-  annotations: {}
   hosts:
     - host: platform-python.com
       paths:

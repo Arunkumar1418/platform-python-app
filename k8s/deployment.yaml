@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: platform-python
-        image: arunkumar1418/platform-python:v1.0.1
+        image: arunkumar1418/platform-python-app:6c2402b
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
@@ -35,10 +35,11 @@ spec:
           periodSeconds: 10
         readinessProbe:
           httpGet:
-            path: /api/v1/healthz
+            path: /api/v1/details
             port: 5000
-          initialDelaySeconds: 5
+          initialDelaySeconds: 15
           periodSeconds: 5
+          failureThreshold: 3
 
       
     
