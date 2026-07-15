@@ -1,0 +1,11 @@
+site_name: 'platform-python-app'
+site_description: 'Main documentation for Platfrom python app'
+repo_url: https://github.com/Arunkumar1418/platform-python-app
+edit_uri: edit/main/docs
+
+plugins:
+  - techdocs-core
+
+nav:
+  - Overview:
+      - Getting started: 'docs/index.md'
