@@ -32,7 +32,7 @@ jobs:
         run: echo "${{ env.git_hash }}"
       -
         name: Build and push
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           push: true
           tags: arunkumar1418/platform-python-app:${{ env.git_hash }}
