@@ -56,7 +56,7 @@ jobs:
           cat charts/platform-python/values.yaml
 
       - name: Commit changes
-        uses: EndBug/add-and-commit@v9
+        uses: EndBug/add-and-commit@v10
         with:
           message: 'Updates values.yaml with commit ${{needs.ci.outputs.commit_id}}'
           token: ${{ secrets.PAT_TOKEN }}
